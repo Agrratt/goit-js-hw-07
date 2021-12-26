@@ -16,11 +16,11 @@ const createPhotoCard = galleryItems.map(({ preview, original, description }) =>
 
 listContainer.insertAdjacentHTML('beforeend', createPhotoCard);
 
-let gallery = new SimpleLightbox('.gallery a');
-gallery.on('show.simplelightbox', function () {
+let gallery = new SimpleLightbox('.gallery a', {
     
-    captionsData: 'alt';
-    captionDelay: 250;
+    captionsData: 'alt',
+    captionDelay: 250,
+    captionPosition: 'bottom',
 });
 
 console.log(galleryItems);

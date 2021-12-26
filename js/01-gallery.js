@@ -23,30 +23,35 @@ function createPhotoCard(photos) {
     }).join('');
 };
 
+const instance = basicLightbox.create(`<img class="modal-img" src="">`, {
+    onShow: instance => {
+        window.addEventListener('keydown', closeModal);
+    },
+        
+    onClose: instance => {
+        window.removeEventListener('keydown', closeModal)
+    },
+});
+
 function listContainerClick(event) {
     if (!event.target.classList.contains('gallery__image')) {
         return;
     }
     event.preventDefault();
 
-    const instance = basicLightbox.create(`
-    <img
-    src="${event.target.dataset.source}"
-    width="800" 
-    height="600">
-    `);
-
+    instance.element().querySelector('img').src = event.target.dataset.source;
+    
     instance.show();
-
-    document.addEventListener('keydown', closeModal);
+};
 
     function closeModal(e) {
-        if (e.code === "Escape") {
-          instance.close()
+        if (e.key === "Escape") {
+            instance.close();
+            return;
         }
     }
 
-    console.log(event.target);
-}
+    
+
 
 console.log(galleryItems);
